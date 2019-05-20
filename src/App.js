@@ -16,12 +16,10 @@ class App extends React.Component{
     }
 
     handleDelete(id) {
-        const todos = this.state.todos.filter((todo) => {
-            return todo.id !== id
-        });
-        this.setState(state => {
+        this.setState(({ todos }) => {
+            const newArray = todos.filter(todo => todo.id !== id);
             return {
-                todos: todos
+                todos: newArray
             };
         });
     }
