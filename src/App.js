@@ -4,6 +4,7 @@ import SearchPanel from './components/search-panel';
 import TodoList from './components/todo-list';
 import todoData from './components/todoData';
 import ItemStatusFilter from './components/item-status-filter';
+import ItemAddForm from './components/item-add-form';
 import './index.css';
 
 class App extends React.Component{
@@ -36,6 +37,7 @@ class App extends React.Component{
                 <TodoList
                     onDeleted={this.handleDelete}
                     todos={this.state.todos} />
+                <ItemAddForm />
             </div>
         );
     }
