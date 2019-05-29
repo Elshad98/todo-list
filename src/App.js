@@ -14,6 +14,7 @@ class App extends React.Component{
             todos: todoData
         };
         this.handleDelete = this.handleDelete.bind(this);
+        this.handleAdd = this.handleAdd.bind(this);
     }
 
     handleDelete(id) {
@@ -25,7 +26,23 @@ class App extends React.Component{
         });
     }
 
+    nextId(){
+        this._nextId = this._nextId || 4;
+        return this._nextId++;
+    }
+
+    handleAdd(text){
+        const todo = {
+            id: this.nextId(),
+            label: text,
+            important: false
+        }
+        const todos = [...this.state.todos, todo];
+        this.setState(state => ({todos: todos}));
+    }
+
     render() {
+        console.log(this.state.todos);
         return (
             <div className="todo-app">
                 <AppHeader todo={1} done={3} />
@@ -37,7 +54,7 @@ class App extends React.Component{
                 <TodoList
                     onDeleted={this.handleDelete}
                     todos={this.state.todos} />
-                <ItemAddForm />
+                <ItemAddForm onAdd={this.handleAdd} />
             </div>
         );
     }

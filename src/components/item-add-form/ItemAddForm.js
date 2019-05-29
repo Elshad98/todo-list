@@ -20,7 +20,11 @@ class ItemAddForm extends React.Component {
 
 	handleSubmit(evt){
 		evt.preventDefault();
-		
+		const text = this.state.text.trim();
+		if(text && isNaN(text)){
+			this.props.onAdd(this.state.text);
+			this.setState(state => ({text : ''}));
+		}				
 	}
 
 	render(){
