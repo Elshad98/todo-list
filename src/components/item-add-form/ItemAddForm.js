@@ -30,7 +30,10 @@ class ItemAddForm extends React.Component {
 	render(){
 		return (
 			<form onSubmit={this.handleSubmit} className="item-add-form">
-				<input type="text" value={this.state.text} onChange={this.handleChange} />
+				<input 
+					type="text" 
+					value={this.state.text}
+					onChange={this.handleChange} />
 				<button type="submit" className="btn btn-outline-secondary">
 					Add Item
 				</button>

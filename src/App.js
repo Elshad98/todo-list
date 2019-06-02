@@ -42,7 +42,6 @@ class App extends React.Component{
     }
 
     render() {
-        console.log(this.state.todos);
         return (
             <div className="todo-app">
                 <AppHeader todo={1} done={3} />
@@ -50,7 +49,6 @@ class App extends React.Component{
                     <SearchPanel />
                     <ItemStatusFilter />
                 </div>
-
                 <TodoList
                     onDeleted={this.handleDelete}
                     todos={this.state.todos} />
