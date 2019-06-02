@@ -2,60 +2,31 @@ import React from 'react';
 import './TodoListItem.css';
 
 class TodoListItem extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            done: false,
-            important: this.props.important
-        };
-
-        this.onLabelClick = this.onLabelClick.bind(this);
-        this.onMarkImportant = this.onMarkImportant.bind(this);
-    }
-
-    onLabelClick() {
-        this.setState(({ done }) => {
-            return {
-                done: !done
-            };
-        });
-    }
-
-    onMarkImportant() {
-        this.setState(({ important }) => {
-            return {
-                important: !important
-            };
-        });
-    }
-
     render() {
-        const { label } = this.props;
-        const { done, important } = this.state;
+        const { label, onDeleted, onToggleImportant, onToggleDone, done, important} = this.props;
         let classNames = 'todo-list-item';
-        if (done) {
+
+        if (done)
             classNames += ' done';
-        }
-        if (important) {
+        if (important)
             classNames += ' important';
-        }
+
         return (
             <span className={classNames}>
                 <span
-                    onClick={this.onLabelClick}
+                    onClick={onToggleImportant}
                     className="todo-list-item-label">
                     {label}
                 </span>
                 <button type="button"
                     className="btn btn-outline-success btn-sm float-right"
-                    onClick={this.onMarkImportant}>
+                    onClick={onToggleDone}>
                     <i className="fa fa-exclamation" />
                 </button>
 
                 <button type="button"
                     className="btn btn-outline-danger btn-sm float-right"
-                    onClick={this.props.onDeleted}>
+                    onClick={onDeleted}>
                     <i className="fa fa-trash-o" />
                 </button>
             </span>

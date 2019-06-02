@@ -15,6 +15,8 @@ class App extends React.Component{
         };
         this.handleDelete = this.handleDelete.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
+        this.onToggleImportant = this.onToggleImportant.bind(this);
+        this.onToggleDone = this.onToggleDone.bind(this);
     }
 
     handleDelete(id) {
@@ -41,8 +43,15 @@ class App extends React.Component{
         this.setState(state => ({todos: todos}));
     }
 
+    onToggleImportant(id){
+        console.log('Toggle Important', id);
+    }
+
+    onToggleDone(id){
+        console.log('Toggle done', id);
+    }
+
     render() {
-        console.log(this.state.todos);
         return (
             <div className="todo-app">
                 <AppHeader todo={1} done={3} />
@@ -53,7 +62,9 @@ class App extends React.Component{
 
                 <TodoList
                     onDeleted={this.handleDelete}
-                    todos={this.state.todos} />
+                    todos={this.state.todos} 
+                    onToggleImportant={this.onToggleImportant}
+                    onToggleDone={this.onToggleDone}/>
                 <ItemAddForm onAdd={this.handleAdd} />
             </div>
         );
