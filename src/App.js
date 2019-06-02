@@ -72,12 +72,9 @@ class App extends React.Component{
     }
 
     render() {
-<<<<<<< HEAD
-=======
         const { todos } = this.state;
         const doneCount = todos.filter((todo) => todo.done === true).length;
         const todoCount = todos.length - doneCount;
->>>>>>> aab312c1c75d4b2b3974fbf6e9ba5765d3e97626
         return (
             <div className="todo-app">
                 <AppHeader todo={todoCount} done={doneCount} />
