@@ -19,21 +19,25 @@ class ItemAddForm extends React.Component {
 	}
 
 	handleSubmit(evt){
+		const formControl = evt.target.querySelector('.form-control');
 		evt.preventDefault();
 		const text = this.state.text.trim();
 		if(text && isNaN(text)){
+			formControl.classList.remove('is-invalid');
 			this.props.onAdd(this.state.text);
 			this.setState(state => ({text : ''}));
-		}				
+		}else
+			formControl.classList.add('is-invalid');	
 	}
 
 	render(){
 		return (
-			<form onSubmit={this.handleSubmit} className="item-add-form">
-				<input 
-					type="text" 
-					value={this.state.text}
-					onChange={this.handleChange} />
+			<form onSubmit={this.handleSubmit} className="item-add-form d-flex">
+				<input 	type="text"
+						className="form-control"
+						placeholder="What needs to be done" 
+						value={this.state.text} 
+						onChange={this.handleChange} />
 				<button type="submit" className="btn btn-outline-secondary">
 					Add Item
 				</button>

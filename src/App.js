@@ -15,6 +15,17 @@ class App extends React.Component{
         };
         this.handleDelete = this.handleDelete.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
+        this.onToggleImportant = this.onToggleImportant.bind(this);
+        this.onToggleDone = this.onToggleDone.bind(this);
+    }
+
+    createTodoItem(label){
+        return{
+            label: label,
+            important: false,
+            done: false,
+            id: this.nextId()
+        }
     }
 
     handleDelete(id) {
@@ -32,26 +43,53 @@ class App extends React.Component{
     }
 
     handleAdd(text){
-        const todo = {
-            id: this.nextId(),
-            label: text,
-            important: false
-        }
+        const todo = this.createTodoItem(text);
         const todos = [...this.state.todos, todo];
         this.setState(state => ({todos: todos}));
     }
 
+    onToggleImportant(id){
+        this.setState(({todos}) => {
+            return {
+                todos: this.toggleProperty(todos, id, 'important')
+            }
+        });
+    }
+
+    onToggleDone(id){
+        this.setState(({todos}) => {
+            return {
+                todos: this.toggleProperty(todos, id, 'done')
+            }
+        });
+    }
+
+    toggleProperty(array, id, propName){
+        const idx = array.findIndex(todo => todo.id === id);
+        const oldItem = array[idx];
+        const newItem = {...oldItem, [propName]: !oldItem[propName]};
+        return [...array.slice(0, idx), newItem, ...array.slice(idx + 1)];
+    }
+
     render() {
+<<<<<<< HEAD
+=======
+        const { todos } = this.state;
+        const doneCount = todos.filter((todo) => todo.done === true).length;
+        const todoCount = todos.length - doneCount;
+>>>>>>> aab312c1c75d4b2b3974fbf6e9ba5765d3e97626
         return (
             <div className="todo-app">
-                <AppHeader todo={1} done={3} />
+                <AppHeader todo={todoCount} done={doneCount} />
                 <div className="top-panel d-flex">
                     <SearchPanel />
                     <ItemStatusFilter />
                 </div>
                 <TodoList
                     onDeleted={this.handleDelete}
-                    todos={this.state.todos} />
+                    todos={todos} 
+                    onToggleImportant={this.onToggleImportant}
+                    onToggleDone={this.onToggleDone}/>
                 <ItemAddForm onAdd={this.handleAdd} />
             </div>
         );
