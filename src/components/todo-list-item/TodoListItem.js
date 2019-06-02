@@ -14,13 +14,13 @@ class TodoListItem extends React.Component {
         return (
             <span className={classNames}>
                 <span
-                    onClick={onToggleImportant}
+                    onClick={onToggleDone}
                     className="todo-list-item-label">
                     {label}
                 </span>
                 <button type="button"
                     className="btn btn-outline-success btn-sm float-right"
-                    onClick={onToggleDone}>
+                    onClick={onToggleImportant}>
                     <i className="fa fa-exclamation" />
                 </button>
 

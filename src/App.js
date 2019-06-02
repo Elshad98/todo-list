@@ -49,17 +49,35 @@ class App extends React.Component{
     }
 
     onToggleImportant(id){
-        console.log('Toggle Important', id);
+        this.setState(({todos}) => {
+            return {
+                todos: this.toggleProperty(todos, id, 'important')
+            }
+        });
     }
 
     onToggleDone(id){
-        console.log('Toggle done', id);
+        this.setState(({todos}) => {
+            return {
+                todos: this.toggleProperty(todos, id, 'done')
+            }
+        });
+    }
+
+    toggleProperty(array, id, propName){
+        const idx = array.findIndex(todo => todo.id === id);
+        const oldItem = array[idx];
+        const newItem = {...oldItem, [propName]: !oldItem[propName]};
+        return [...array.slice(0, idx), newItem, ...array.slice(idx + 1)];
     }
 
     render() {
+        const { todos } = this.state;
+        const doneCount = todos.filter((todo) => todo.done === true).length;
+        const todoCount = todos.length - doneCount;
         return (
             <div className="todo-app">
-                <AppHeader todo={1} done={3} />
+                <AppHeader todo={todoCount} done={doneCount} />
                 <div className="top-panel d-flex">
                     <SearchPanel />
                     <ItemStatusFilter />
@@ -67,7 +85,7 @@ class App extends React.Component{
 
                 <TodoList
                     onDeleted={this.handleDelete}
-                    todos={this.state.todos} 
+                    todos={todos} 
                     onToggleImportant={this.onToggleImportant}
                     onToggleDone={this.onToggleDone}/>
                 <ItemAddForm onAdd={this.handleAdd} />
