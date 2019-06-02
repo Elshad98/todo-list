@@ -11,12 +11,14 @@ class App extends React.Component{
     constructor () {
         super();
         this.state = {
-            todos: todoData
+            todos: todoData,
+            term: ''
         };
         this.handleDelete = this.handleDelete.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
         this.onToggleImportant = this.onToggleImportant.bind(this);
         this.onToggleDone = this.onToggleDone.bind(this);
+        this.onSearchChange = this.onSearchChange.bind(this);
     }
 
     createTodoItem(label){
@@ -71,20 +73,33 @@ class App extends React.Component{
         return [...array.slice(0, idx), newItem, ...array.slice(idx + 1)];
     }
 
+    onSearchChange(term){
+        this.setState({term: term});
+    } 
+
+    search(items, term){
+        if(term.length === 0)
+            return items;
+        return items.filter((item) => {
+            return item.label.toLowerCase().indexOf(term.toLowerCase()) > -1;
+        });
+    }
+
     render() {
-        const { todos } = this.state;
+        const { todos, term } = this.state;
         const doneCount = todos.filter((todo) => todo.done === true).length;
         const todoCount = todos.length - doneCount;
+        const visibleItems = this.search(todos, term);
         return (
             <div className="todo-app">
                 <AppHeader todo={todoCount} done={doneCount} />
                 <div className="top-panel d-flex">
-                    <SearchPanel />
+                    <SearchPanel onSearchChange={this.onSearchChange} />
                     <ItemStatusFilter />
                 </div>
                 <TodoList
                     onDeleted={this.handleDelete}
-                    todos={todos} 
+                    todos={visibleItems} 
                     onToggleImportant={this.onToggleImportant}
                     onToggleDone={this.onToggleDone}/>
                 <ItemAddForm onAdd={this.handleAdd} />
