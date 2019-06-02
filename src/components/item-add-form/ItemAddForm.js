@@ -19,12 +19,15 @@ class ItemAddForm extends React.Component {
 	}
 
 	handleSubmit(evt){
+		const formControl = evt.target.querySelector('.form-control');
 		evt.preventDefault();
 		const text = this.state.text.trim();
 		if(text && isNaN(text)){
+			formControl.classList.remove('is-invalid');
 			this.props.onAdd(this.state.text);
 			this.setState(state => ({text : ''}));
-		}				
+		}else
+			formControl.classList.add('is-invalid');	
 	}
 
 	render(){
