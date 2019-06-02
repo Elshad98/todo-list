@@ -19,6 +19,15 @@ class App extends React.Component{
         this.onToggleDone = this.onToggleDone.bind(this);
     }
 
+    createTodoItem(label){
+        return{
+            label: label,
+            important: false,
+            done: false,
+            id: this.nextId()
+        }
+    }
+
     handleDelete(id) {
         this.setState(({ todos }) => {
             const newArray = todos.filter(todo => todo.id !== id);
@@ -34,11 +43,7 @@ class App extends React.Component{
     }
 
     handleAdd(text){
-        const todo = {
-            id: this.nextId(),
-            label: text,
-            important: false
-        }
+        const todo = this.createTodoItem(text);
         const todos = [...this.state.todos, todo];
         this.setState(state => ({todos: todos}));
     }
