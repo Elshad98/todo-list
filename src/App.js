@@ -36,6 +36,7 @@ class App extends React.Component{
     handleDelete(id) {
         this.setState(({ todos }) => {
             const newArray = todos.filter(todo => todo.id !== id);
+            this.setDummyData(newArray);
             return {
                 todos: newArray
             };
@@ -49,11 +50,12 @@ class App extends React.Component{
             }
             return todo;
         });
+        this.setDummyData(newArray);
         this.setState({todos: newArray});
     }
 
     nextId(){
-        this._nextId = this._nextId || 4;
+        this._nextId = this._nextId || this.state.todos.length + 1;
         return this._nextId++;
     }
 
@@ -61,10 +63,12 @@ class App extends React.Component{
         const todo = this.createTodoItem(text);
         const todos = [...this.state.todos, todo];
         this.setState(state => ({todos: todos}));
+        this.setDummyData(todos);
     }
 
     onToggleImportant(id){
         this.setState(({todos}) => {
+            this.setDummyData(this.toggleProperty(todos, id, 'important'));
             return {
                 todos: this.toggleProperty(todos, id, 'important')
             }
@@ -73,10 +77,17 @@ class App extends React.Component{
 
     onToggleDone(id){
         this.setState(({todos}) => {
+            this.setDummyData(this.toggleProperty(todos, id, 'done'));
             return {
                 todos: this.toggleProperty(todos, id, 'done')
             }
         });
+    }
+
+    setDummyData(todos){
+        localStorage.clear();
+        const todoData = JSON.stringify(todos);
+        localStorage.setItem("todos", todoData);
     }
 
     toggleProperty(array, id, propName){

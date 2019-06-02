@@ -1,4 +1,4 @@
-const todoData = [
+let todoData = [
     {
         id: 1,
         label: 'Drink Coffee',
@@ -19,4 +19,7 @@ const todoData = [
     },
 ];
 
+if(localStorage.getItem('todos') !== null)
+    todoData = JSON.parse(localStorage.getItem('todos'));
+console.log(JSON.parse(localStorage.getItem('todos')));
 export default todoData;
