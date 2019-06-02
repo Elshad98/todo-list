@@ -29,8 +29,12 @@ class ItemAddForm extends React.Component {
 
 	render(){
 		return (
-			<form onSubmit={this.handleSubmit} className="item-add-form">
-				<input type="text" value={this.state.text} onChange={this.handleChange} />
+			<form onSubmit={this.handleSubmit} className="item-add-form d-flex">
+				<input 	type="text"
+						className="form-control"
+						placeholder="What needs to be done" 
+						value={this.state.text} 
+						onChange={this.handleChange} />
 				<button type="submit" className="btn btn-outline-secondary">
 					Add Item
 				</button>
