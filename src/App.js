@@ -21,6 +21,7 @@ class App extends React.Component{
         this.onToggleDone = this.onToggleDone.bind(this);
         this.onSearchChange = this.onSearchChange.bind(this);
         this.onFilterChange = this.onFilterChange.bind(this);
+        this.handleEdit = this.handleEdit.bind(this);
     }
 
     createTodoItem(label){
@@ -39,6 +40,16 @@ class App extends React.Component{
                 todos: newArray
             };
         });
+    }
+
+    handleEdit(id, text){
+        const newArray = this.state.todos.map((todo) =>  {
+            if(todo.id === id){
+                todo.label = text;
+            }
+            return todo;
+        });
+        this.setState({todos: newArray});
     }
 
     nextId(){
@@ -120,6 +131,7 @@ class App extends React.Component{
                 </div>
                 <TodoList
                     onDeleted={this.handleDelete}
+                    onEdit={this.handleEdit}
                     todos={visibleItems} 
                     onToggleImportant={this.onToggleImportant}
                     onToggleDone={this.onToggleDone}/>
