@@ -11,10 +11,16 @@ import './app.css';
 
 class App extends React.Component {
 
+    static FILTERS = {
+        ALL: 'all',
+        DONE: 'done',
+        ACTIVE: 'active'
+    };
+
     state = {
         term: '',
-        filter: 'all',
-        todos: todoData
+        todos: todoData,
+        filter: App.FILTERS.ALL
     };
 
     createTodoItem(label) {
@@ -83,12 +89,12 @@ class App extends React.Component {
 
     filter(items, filter) {
         switch (filter) {
-            case 'all':
+            case App.FILTERS.ALL:
                 return items
-            case 'active':
-                return items.filter((item) => !item.done);
-            case 'done':
+            case App.FILTERS.DONE:
                 return items.filter((item) => item.done);
+            case App.FILTERS.ACTIVE:
+                return items.filter((item) => !item.done);
             default:
                 return items
         }
