@@ -19,7 +19,4 @@ let todoData = [
     },
 ];
 
-if(localStorage.getItem('todos') !== null)
-    todoData = JSON.parse(localStorage.getItem('todos'));
-
 export default todoData;

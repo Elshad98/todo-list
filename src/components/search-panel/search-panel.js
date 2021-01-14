@@ -1,16 +1,14 @@
 import React from 'react';
-import './SearchPanel.css';
+
+import './search-panel.css';
 
 class SearchPanel extends React.Component {
-    constructor(){
-        super();
-        this.state = {
-            term: ''
-        };
-        this.handleChange = this.handleChange.bind(this);
-    }
-    
-    handleChange(evt){
+
+    state = {
+        term: ''
+    };
+
+    handleChange = (evt) => {
         const term = evt.target.value;
         this.setState({
             term: term
@@ -18,12 +16,12 @@ class SearchPanel extends React.Component {
         this.props.onSearchChange(term);
     }
 
-    render(){
+    render() {
         return (
             <input
-                type="text"
-                className="form-control search-input" 
-                placeholder="search"
+                type='text'
+                className='form-control search-input'
+                placeholder='search'
                 value={this.state.term}
                 onChange={this.handleChange} />
         );

@@ -16,12 +16,13 @@ class TodoListItem extends React.Component {
 
     handleSubmit = (evt) => {
         evt.preventDefault();
-        const { text } = this.state;
+        const text = this.state.text.trim();
         if (text.length > 0) {
             this.props.onEdit(this.props.id, text);
             this.setState({
                 editing: !this.state.editing,
-                isInvalid: false
+                isInvalid: false,
+                text: text
             });
         } else {
             this.setState({ isInvalid: true });
